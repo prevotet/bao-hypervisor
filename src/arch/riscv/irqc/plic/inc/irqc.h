@@ -11,14 +11,23 @@
 #include <cpu.h>
 #include <vplic.h>
 
-#define IRQC_MAX_INTERRUPTS (PLIC_MAX_INTERRUPTS)
+#define IRQC_TIMR_INT_ID            (PLIC_MAX_INTERRUPTS + 1)
+#define IRQC_SOFT_INT_ID            (PLIC_MAX_INTERRUPTS + 2)
+#define IRQC_MAX_INTERRUPT_LINES    (IRQC_SOFT_INT_ID + 1)
+#define IRQC_MAX_INTERRUPT_HANDLERS MAX_INTERRUPT_LINES
+#define IRQC_MAX_GUEST_INTERRUPTS   MAX_INTERRUPT_LINES
 
-#define HART_REG_OFF        PLIC_THRESHOLD_OFF
-#define IRQC_HART_INST      PLIC_PLAT_CNTXT_NUM
+#define HART_REG_OFF                PLIC_THRESHOLD_OFF
+#define IRQC_HART_INST              PLIC_PLAT_CNTXT_NUM
 
 static inline void irqc_init()
 {
     plic_init();
+}
+
+static inline irqid_t irqc_reserve(irqid_t pintp_id)
+{
+    return pintp_id;
 }
 
 static inline void irqc_cpu_init()
