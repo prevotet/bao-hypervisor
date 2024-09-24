@@ -44,6 +44,7 @@ BAO_TEST(IRQ_CHECK, UART)
     uart_enable_rxirq();
     irq_enable(33);
     irq_set_prio(33, IRQ_MAX_PRIO);
+    COMMAND_SEND_CHAR("a");
 
     timer_wait(TEST_TIMEOUT);
     EXPECTED_TRUE(irq_en_uart);
